@@ -1,0 +1,15 @@
+/* -*- Mode: C; indent-tabs-mode: t; c-basic-offset: 3; tab-width: 3 -*-  */
+/*
+ * main.cc
+ * Copyright (C) 2014 Mike <reechee@roman-helmet>
+ * 
+ */
+
+#include <iostream>
+
+int main()
+{
+	std::cout << "Hello world!" << std::endl;
+	return 0;
+}
+
