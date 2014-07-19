@@ -14,17 +14,21 @@ class Building
 {
 public:
 
-	Building(std::string filepath);
+	Building(std::string filepath, int numCars, int speed, int numFloors);
 	virtual ~Building();
 
 	void addTravelTime(int travelTime);
 	void addWaitTime(int waitTime);
+	void calcTravelTime();
+	void calcWaitTime();
 	int getNextFloorCall() const;
 	void incrementClock();
 	void updateCarStates();
 
 private:
 
+	int avgTravelTime;
+	int avgWaitTime;
 	std::vector<Car> cars;
 	std::vector<Floor> floors;
 	std::queue<Passenger> passengers;

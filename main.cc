@@ -16,7 +16,11 @@
 
 int main()
 {
-	std::cout << "Hello world!" << std::endl;
+	//Construct Building singleton
+
+	//parse CSV
+
+	//
 	return 0;
 }
 

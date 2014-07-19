@@ -25,7 +25,37 @@ Passenger::~Passenger()
 }
 
 //MEMBER FUNCTIONS
-int Passenger::getFloorEnd()
+
+//The function getFloorEnd() returns the passenger's destination floor.
+int Passenger::getFloorEnd() const
+{
+
+}
+
+//The function getTimeDropOff() returns the time the passenger was dropped off
+//at their destination floor.
+int getTimeDropOff() const
+{
+
+}
+
+//The function getTimePickUp() returns the time the passenger was picked up at
+//their origin floor.
+int getTimePickUp() const
+{
+
+}
+
+//The function setTimeDropOff() sets the time the passenger was dropped off at 
+//their destination floor.
+void setTimeDropoff(int time)
+{
+
+}
+
+//The function setTimePickUp() sets the time the passenger was picked up at
+//their origin floor.
+void setTimePickUp(int time)
 {
 
 }

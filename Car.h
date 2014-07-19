@@ -28,8 +28,8 @@ public:
 	void addPassenger();
 	int getFloor() const;
 	State getState() const;
-	void removePassenger();
-	void setFloor();
+	void rmPassenger();
+	void setFloor(int floor);
 	void updateState();
 
 private:

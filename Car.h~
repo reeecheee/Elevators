@@ -29,7 +29,7 @@ public:
 	int getFloor() const;
 	State getState() const;
 	void removePassenger();
-	void setFloor();
+	void setFloor(int floor);
 	void updateState();
 
 private:
@@ -39,7 +39,7 @@ private:
 	static const int speed = 10;
 	State state = STOPPED;
 
-};
+}; // end Car class
 
 #endif // _CAR_H_
 

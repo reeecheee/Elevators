@@ -17,11 +17,13 @@ public:
 	Floor();
 	virtual ~Floor();
 	
-	void addPassenger(Passenger passenger);
+	void addPassenger(Passenger* passenger);
+	Passenger* firstPassenger() const;
+	void rmPassenger();
 
 private:
 
-	std::vector<Passenger> passengers;
+	std::queue<Passenger*> passengers;
 
 }; // end Floor class
 
