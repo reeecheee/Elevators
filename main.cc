@@ -34,14 +34,17 @@ int main()
 		//update car states
 		BuildingPtr->updateCarStates();
 
+		//load and/or unload passengers
+
 		//increment clock
 		BuildingPtr->incrementClock();
 	}
 
+	//print average wait and travel times
 
-	//REMOVE AFTER TESTING
-	//std::cout << "Cars: " << BuildingPtr->sizeOfCars() << std::endl;
-	//std::cout << "Floors: " << BuildingPtr->sizeOfFloors() << std::endl;
+	//rerun simulation with a 5 second speed
+
+	//print new average wait and travel times, with percent changes from first simulation
 	
 	return 0;
 }

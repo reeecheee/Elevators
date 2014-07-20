@@ -212,9 +212,9 @@ void Building::makePassenger(int time)
 			{
 				cont = false;
 			}
-		}
-	}
-}
+		} // end while loop
+	} // end for loop
+} // end makePassenger()
 
 //The function rmNextPassFromFlr() pops the next passenger in the passed Floor's
 //queue.
@@ -229,7 +229,7 @@ void Building::updateCarStates()
 {
 	for(auto car : cars)
 	{
-		car.updateState();
+		car.updateState(this->getNextFlrCall());
 	}
 }
 
@@ -244,6 +244,3 @@ int Building::sizeOfFloors() const
 {
 	return this->floors.size();
 }
-
-
-

@@ -26,13 +26,15 @@ int main()
 	       						         100); // number of floors (floor 1 = ground)
 
 	//loop for each second of simulation
-	while(BuildingPtr->getTime() < BuildingPtr->getFinalPassengerTime())
+	while(BuildingPtr->getTime() < BuildingPtr->getFinalPassengerTime() + 200) // FIND A BETTER WAY TO EXTEND SIMULATION TO COMPLETION
 	{
 		//create new passenger(s) (if any)
 		BuildingPtr->makePassenger(BuildingPtr->getTime());
 		
 		//update car states
 		BuildingPtr->updateCarStates();
+
+		//load/unload passengers
 
 		//increment clock
 		BuildingPtr->incrementClock();

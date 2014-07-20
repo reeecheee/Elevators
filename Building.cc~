@@ -161,7 +161,7 @@ void Building::calcWaitTime()
 //will be created.
 int Building::getFinalPassengerTime() const
 {
-	return this->parsed.back();
+	return this->parsed.back().at(0);
 }
 
 //The function getNextPassOnFlr() returns a pointer to the next passenger in the
@@ -229,7 +229,7 @@ void Building::updateCarStates()
 {
 	for(auto car : cars)
 	{
-		car.updateState();
+		car.updateState(this->getNextFlrCall());
 	}
 }
 
@@ -244,6 +244,3 @@ int Building::sizeOfFloors() const
 {
 	return this->floors.size();
 }
-
-
-

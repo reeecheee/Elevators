@@ -28,17 +28,24 @@ public:
 	void addPassenger(Passenger* passenger);
 	int getFloor() const;
 	int getNumPassAboard() const;
+	State getPrevState() const;
 	State getState() const;
+	int getTimeInState() const;
 	void rmPassenger();
 	void setFloor(int floor);
-	void updateState();
+	void setPrevState(State state);
+	void setState(State newState);
+	void setTimeInState(int time);
+	void updateState(int nextFlrCall);
 
 private:
 
-	std::queue<Passenger*> passengers;
+	std::deque<Passenger*> passengers;
 	int floor = 0;
+	State prevState = STOPPED;
 	int speed;
 	State state = STOPPED;
+	int timeInState = 0;
 
 }; // end Car class
 
