@@ -35,6 +35,7 @@ int main()
 		BuildingPtr->updateCarStates();
 
 		//load and/or unload passengers
+		BuildingPtr->transactPassengers();
 
 		//increment clock
 		BuildingPtr->incrementClock();

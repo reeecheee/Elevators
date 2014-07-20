@@ -19,6 +19,7 @@ public:
 	int getFloorEnd() const;
 	int getTimeDropOff() const;
 	int getTimePickUp() const;
+	int getTimeStart() const;
 	void setTimeDropoff(int time);
 	void setTimePickUp(int time);
 

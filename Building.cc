@@ -7,7 +7,7 @@
  *  Date: 20140716
  */
 
-#include <queue>
+#include <deque>
 #include <string>
 #include <vector>
 #include "Passenger.h"
@@ -157,6 +157,19 @@ void Building::calcWaitTime()
 	this->avgWaitTime = avg;
 }
 
+//The function destroyPassenger() adds the passed passenger's wait and travel times
+//to the Building's listing of wait and travel times, then deletes the passenger.
+void Building::destroyPassenger(Passenger* passenger)
+{
+	int tempWait = passenger->getTimePickUp() - passenger->getTimeStart();
+	int tempTravel = passenger->getTimeDropOff() - passenger->getTimePickUp();
+
+	this->waitTimes.push_back(tempWait);
+	this->travelTimes.push_back(tempTravel);
+
+	delete passenger;
+}
+
 //The function getFinalPassengerTime() returns the time that the final passenger
 //will be created.
 int Building::getFinalPassengerTime() const
@@ -205,7 +218,7 @@ void Building::makePassenger(int time)
 			{
 				//create new passengers
 				Passenger* passengerPtr = new Passenger(it[0], it[1], it[2]);
-				this->passengers.push(passengerPtr);
+				this->passengers.push_back(passengerPtr);
 				this->floors[it[1]].addPass(passengerPtr);
 			}
 			else if(it[0] > time)
@@ -221,6 +234,24 @@ void Building::makePassenger(int time)
 void Building::rmNextPassFromFlr(int floor)
 {
 	this->floors[floor].rmPass();
+}
+
+//The function transactPassengers() unloads passengers from cars if they've reached
+//their destination, and loads passengers into cars if a car with unused capacity
+//has arrived at their floor.
+void Building::transactPassengers()
+{
+	for(auto car : cars)
+	{
+		if(car.getState() == Car::STOPPED)
+		{
+			car.rmPassenger(car.getFloor());
+
+			
+			
+			//determine if passengers are on the floor that need picking up, load them
+		}
+	}
 }
 
 //The function updateCarStates() calls Car::updateState() on each Car object

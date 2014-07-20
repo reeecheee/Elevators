@@ -17,9 +17,9 @@ public:
 	Floor();
 	virtual ~Floor();
 	
-	void addPassenger(Passenger* passenger);
-	Passenger* firstPassenger() const;
-	void rmPassenger();
+	void addPass(Passenger* passenger);
+	Passenger* nextPass() const;
+	void rmPass();
 
 private:
 

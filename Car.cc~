@@ -72,14 +72,23 @@ int Car::getTimeInState() const
 }
 
 //The function rmPassenger() unloads passengers whose destination floor equals
-//the current floor that the car is stopped at.
-void Car::rmPassenger(/*end floor?*/)
+//the passed floor.
+void Car::rmPassenger(int floor)
 {
-	//pop from passengers queue (deque??)
-
-	//calculate wait/travel times and add to Building's vector for those.
+	std::deque<Passenger*>::iterator it = this->passengers.begin();
 	
-	//delete passenger
+	while(it != this->passengers.end())
+	{
+		if(it->getFloorEnd() == floor)
+		{
+			// erasing the element the iterator points to will increment it
+			this->passengers.erase(it);
+		}
+		else
+		{
+			++it;
+		}
+	}
 }
 
 //The function setFloor() sets the car's current floor location.

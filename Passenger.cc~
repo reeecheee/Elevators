@@ -29,35 +29,41 @@ Passenger::~Passenger()
 //The function getFloorEnd() returns the passenger's destination floor.
 int Passenger::getFloorEnd() const
 {
-
+	return this->floorEnd;
 }
 
 //The function getTimeDropOff() returns the time the passenger was dropped off
 //at their destination floor.
-int getTimeDropOff() const
+int Passenger::getTimeDropOff() const
 {
-
+	return this->timeDropOff;
 }
 
 //The function getTimePickUp() returns the time the passenger was picked up at
 //their origin floor.
-int getTimePickUp() const
+int Passenger::getTimePickUp() const
 {
+	return this->timePickUp;
+}
 
+//The function getTimeStart() returns the time the passenger was created.
+int getTimeStart() const
+{
+	return this->timeStart;
 }
 
 //The function setTimeDropOff() sets the time the passenger was dropped off at 
 //their destination floor.
-void setTimeDropoff(int time)
+void Passenger::setTimeDropoff(int time)
 {
-
+	this->timeDropOff = time;
 }
 
 //The function setTimePickUp() sets the time the passenger was picked up at
 //their origin floor.
-void setTimePickUp(int time)
+void Passenger::setTimePickUp(int time)
 {
-
+	this->timePickUp = time;
 }
 
 

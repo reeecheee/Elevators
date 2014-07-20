@@ -10,6 +10,8 @@
 #ifndef _FLOOR_H_
 #define _FLOOR_H_
 
+#include <queue>
+
 class Floor
 {
 public:

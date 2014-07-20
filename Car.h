@@ -10,6 +10,8 @@
 #ifndef _CAR_H_
 #define _CAR_H_
 
+#include <deque>
+
 class Car
 {
 public:
@@ -31,7 +33,7 @@ public:
 	State getPrevState() const;
 	State getState() const;
 	int getTimeInState() const;
-	void rmPassenger();
+	void rmPassenger(int floor);
 	void setFloor(int floor);
 	void setPrevState(State state);
 	void setState(State newState);

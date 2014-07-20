@@ -46,6 +46,12 @@ int Passenger::getTimePickUp() const
 	return this->timePickUp;
 }
 
+//The function getTimeStart() returns the time the passenger was created.
+int Passenger::getTimeStart() const
+{
+	return this->timeStart;
+}
+
 //The function setTimeDropOff() sets the time the passenger was dropped off at 
 //their destination floor.
 void Passenger::setTimeDropoff(int time)
