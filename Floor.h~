@@ -17,7 +17,7 @@ public:
 	Floor();
 	virtual ~Floor();
 	
-	void addPassenger(Passenger passenger);
+	void addPassenger(Passenger* passenger);
 	Passenger* firstPassenger() const;
 	void rmPassenger();
 

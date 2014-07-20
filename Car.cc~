@@ -12,9 +12,9 @@
 #include "Car.h"
 
 //CONSTRUCTOR
-Car::Car()
+Car::Car(int speed)
 {
-
+	this->speed = speed;
 }
 
 //VIRTUAL DESTRUCTOR
@@ -25,16 +25,29 @@ Car::~Car()
 
 //MEMBER FUNCTIONS
 
-//The function addPassenger() loads any passengers on the current floor
-void Car::addPassenger()
+//The function addPassenger() loads any passengers on the floor's queue that the
+//car is stopped at, up to the capacity of the car.
+void Car::addPassenger(Passenger* passenger)
 {
-
+	while(this->passengers.size() <= 8)
+	{
+		this->passengers.push(passenger);
+	}
 }
 
 //The function getFloor() returns the current floor that the car is at.
 int Car::getFloor() const
 {
 	return this->floor;
+}
+
+//The function getNumPassAboard() returns the number of passengers currently
+//in the car.
+int Car::getNumPassAboard() const
+{
+	//std::queue::size() returns type size_type, but this functions returns an int?
+	//...it works, so don't complain, but I'm curious
+	return this->passengers.size();
 }
 
 //The function getState() returns the current movement state of the car.
@@ -61,7 +74,19 @@ void Car::setFloor(int floor)
 //passengers in the Building's queue.
 void Car::updateState()
 {
-
+	
+	if(this->getNumPassAboard() == 0) // the car is empty
+	{
+		//head for the next queued Building passenger's start floor
+		//switch case on getState()
+		//
+	}
+	   
+	
+	else if(this->getNumPassAboard() > 0) // the car has one or more passengers aboard
+	{
+		//head for the first queued Car passenger's start floor
+	}
 }
 
 

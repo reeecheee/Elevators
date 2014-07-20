@@ -10,28 +10,56 @@
 #ifndef _BUILDING_H_
 #define _BUILDING_H_
 
+//WHY DID I HAVE TO INCLUDE THESE HERE TO GET IT TO COMPILE SUCCESSFULLY?
+#include <array>
+#include <cstdlib>
+#include <vector>
+#include <queue>
+#include <iostream> // REMOVE IF UNUSED
+#include <fstream>
+#include <sstream>
+#include <string>
+#include "Passenger.h"
+#include "Car.h"
+#include "Floor.h"
+
 class Building
 {
 public:
 
-	Building(std::string filepath, int numCars, int speed, int numFloors);
+	//singleton instance function to call private constructor
+	static Building* Instance(std::string filepath, int numCars, int speed, int numFloors); 
 	virtual ~Building();
 
 	void addTravelTime(int travelTime);
 	void addWaitTime(int waitTime);
 	void calcTravelTime();
 	void calcWaitTime();
-	int getNextFloorCall() const;
+	int getFinalPassengerTime() const;
+	Passenger* getNextPassOnFlr(int floor) const;
+	int getNextFlrCall() const;
+	int getTime() const;
 	void incrementClock();
+	void makePassenger(int time);
+	void rmNextPassFromFlr(int floor);
 	void updateCarStates();
 
+	//REMOVE THESE FUNCTIONS AFTER TESTING 
+	int sizeOfCars() const;
+	int sizeOfFloors() const;
+
 private:
+
+	//Singleton constructor
+	Building(std::string filepath, int numCars, int speed, int numFloors);
+	static Building* instance;
 
 	int avgTravelTime;
 	int avgWaitTime;
 	std::vector<Car> cars;
 	std::vector<Floor> floors;
-	std::queue<Passenger> passengers;
+	std::vector< std::array<int,3> > parsed;
+	std::queue<Passenger*> passengers;
 	int time = 0;
 	std::vector<int> travelTimes;
 	std::vector<int> waitTimes;

@@ -16,17 +16,18 @@ public:
 
 	enum State
 	{
-		STOPPED,
-		STOPPING,
-		MOVING_UP,
-		MOVING_DOWN
+		STOPPED,    // = 0
+		STOPPING,   // = 1
+		MOVING_UP,  // = 2
+		MOVING_DOWN // = 3
 	};
 
-	Car();
+	Car(int speed);
 	virtual ~Car();
 
-	void addPassenger();
+	void addPassenger(Passenger* passenger);
 	int getFloor() const;
+	int getNumPassAboard() const;
 	State getState() const;
 	void rmPassenger();
 	void setFloor(int floor);
@@ -34,9 +35,9 @@ public:
 
 private:
 
-	std::queue<Passenger> passengers;
+	std::queue<Passenger*> passengers;
 	int floor = 0;
-	static const int speed = 10;
+	int speed;
 	State state = STOPPED;
 
 }; // end Car class

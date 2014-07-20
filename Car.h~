@@ -22,21 +22,22 @@ public:
 		MOVING_DOWN
 	};
 
-	Car();
+	Car(int speed);
 	virtual ~Car();
 
-	void addPassenger();
+	void addPassenger(Passenger* passenger);
 	int getFloor() const;
+	int getNumPassAboard() const;
 	State getState() const;
-	void removePassenger();
+	void rmPassenger();
 	void setFloor(int floor);
 	void updateState();
 
 private:
 
-	std::queue<Passenger> passengers;
+	std::queue<Passenger*> passengers;
 	int floor = 0;
-	static const int speed = 10;
+	int speed;
 	State state = STOPPED;
 
 }; // end Car class

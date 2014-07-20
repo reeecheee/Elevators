@@ -9,18 +9,40 @@
  *
  *  OUTPUT: 
  *
- *  LIMITATIONS: 
+ *  LIMITATIONS: Floor numbering scheme
  */
 
 #include <iostream>
+#include "Building.h"
 
 int main()
 {
 	//Construct Building singleton
+	// filepath: /home/reechee/Documents/Cpp/HW6/HW6-Elevators.csv
+	Building *BuildingPtr;
+	BuildingPtr = Building::Instance("/home/reechee/Documents/Cpp/HW6/HW6-Elevators.csv",
+	    						            4,    // number of cars
+	     						            10,   // inter-floor speed of cars
+	       						         100); // number of floors (floor 1 = ground)
 
-	//parse CSV
+	//loop for each second of simulation
+	while(BuildingPtr->getTime() < BuildingPtr->getFinalPassengerTime() + 200) // FIND A BETTER WAY TO EXTEND SIMULATION TO COMPLETION
+	{
+		//create new passenger(s) (if any)
+		BuildingPtr->makePassenger(BuildingPtr->getTime());
+		
+		//update car states
+		BuildingPtr->updateCarStates();
 
-	//
+		//increment clock
+		BuildingPtr->incrementClock();
+	}
+
+
+	//REMOVE AFTER TESTING
+	//std::cout << "Cars: " << BuildingPtr->sizeOfCars() << std::endl;
+	//std::cout << "Floors: " << BuildingPtr->sizeOfFloors() << std::endl;
+	
 	return 0;
 }
 

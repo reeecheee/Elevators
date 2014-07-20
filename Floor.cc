@@ -25,22 +25,22 @@ Floor::~Floor()
 
 //MEMBER FUNCTIONS
 
-//The function addPassenger() adds a pointer to a passenger to the floor's queue.
-void Floor::addPassenger(Passenger* passenger)
+//The function addPass() adds a pointer to a passenger to the floor's queue.
+void Floor::addPass(Passenger* passenger)
 {
 	this->passengers.push(passenger);
 }
 
-//The function firstPassenger() returns a pointer to the first passenger queued
+//The function nextPass() returns a pointer to the first passenger queued
 //at the floor.
-Passenger* Floor::firstPassenger() const
+Passenger* Floor::nextPass() const
 {
 	return this->passengers.front();
 }
 
-//The function rmPassenger() pops the first passenger in the queue and returns
+//The function rmPass() pops the first passenger in the queue and returns
 //a pointer to that passenger.
-void Floor::rmPassenger()
+void Floor::rmPass()
 {
 	this->passengers.pop();
 }
