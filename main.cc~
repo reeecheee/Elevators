@@ -39,11 +39,11 @@ int main()
 		BuildingPtr->makePassenger(BuildingPtr->getTime());
 
 		//REMOVE AFTER TESTING
-		std::cout << BuildingPtr->getNextFlrCall ();
+		//std::cout << BuildingPtr->getNextFlrCall ();
 
 		
 		//update car states
-		//BuildingPtr->updateCarStates();
+		BuildingPtr->updateCarStates();
 
 		//load and/or unload passengers
 		//BuildingPtr->transactPassengers();

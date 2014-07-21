@@ -203,6 +203,10 @@ int Building::getNextFlrCall() const
 	{
 		return this->passengers.front()->getFloorStart();
 	}
+	else
+	{
+		return -1;
+	}
 }
 
 //The function getTime() returns the simulation time in seconds
@@ -275,9 +279,11 @@ void Building::transactPassengers()
 //in the Building's cars vector.
 void Building::updateCarStates()
 {
-	for(auto car : cars)
+	int nextFlrCall = this->getNextFlrCall();
+	
+	for(auto car : this->cars)
 	{
-		car.updateState(this->getNextFlrCall());
+		car.updateState(nextFlrCall);
 	}
 }
 

@@ -201,7 +201,7 @@ int Building::getNextFlrCall() const
 {
 	if(this->passengers.size() != 0)
 	{
-		return this->passengers.front()->getFloorEnd();
+		return this->passengers.front()->getFloorStart();
 	}
 }
 
@@ -275,9 +275,11 @@ void Building::transactPassengers()
 //in the Building's cars vector.
 void Building::updateCarStates()
 {
-	for(auto car : cars)
+	int nextFlrCall = this->getNextFlrCall();
+	
+	for(auto car : this->cars)
 	{
-		car.updateState(this->getNextFlrCall());
+		car.updateState(nextFlrCall);
 	}
 }
 

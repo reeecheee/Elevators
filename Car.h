@@ -30,12 +30,12 @@ public:
 	void addPassenger(Passenger* passenger);
 	int getFloor() const;
 	int getNumPassAboard() const;
-	State getPrevState() const;
-	State getState() const;
+	Car::State getPrevState() const;
+	Car::State getState() const;
 	int getTimeInState() const;
 	std::vector<Passenger*> rmPassenger(int floor);
 	void setFloor(int floor);
-	void setPrevState(State state);
+	void setPrevState(Car::State state);
 	void setState(State newState);
 	void setTimeInState(int time);
 	void updateState(int nextFlrCall);
@@ -44,9 +44,9 @@ private:
 
 	std::deque<Passenger*> passengers;
 	int floor = 0;
-	State prevState = STOPPED;
+	Car::State prevState = STOPPED;
 	int speed;
-	State state = STOPPED;
+	Car::State state = STOPPED;
 	int timeInState = 0;
 
 }; // end Car class

@@ -57,6 +57,7 @@ int main()
 		std::cout << "Car 1: " << BuildingPtr->getCarFlr(1) << std::endl;
 		std::cout << "Car 2: " << BuildingPtr->getCarFlr(2) << std::endl;
 		std::cout << "Car 3: " << BuildingPtr->getCarFlr(3) << std::endl;
+		std::cout << "NxtFlrCall: " << BuildingPtr->getNextFlrCall() << std::endl;
 	}
 
 	//print average wait and travel times

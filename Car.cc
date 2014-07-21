@@ -103,13 +103,13 @@ void Car::setFloor(int floor)
 
 //The function setPrevState() sets the car's last movement direction before moving
 //into the stopping state.
-void Car::setPrevState(State state)
+void Car::setPrevState(Car::State state)
 {
 	this->prevState = state;
 }
 
 //The function setState() sets the car's state to the enum newState.
-void Car::setState(State newState)
+void Car::setState(Car::State newState)
 {
 	this->state = newState;
 }
@@ -125,48 +125,41 @@ void Car::setTimeInState(int time)
 //passengers in the Building's queue.
 void Car::updateState(int nextFlrCall)
 {
+	if(nextFlrCall == -1)
+	{
+		return;
+	}
+	
 	switch(this->getState())
 	{
-		case 0: //STOPPED = 0
+		case Car::STOPPED: //STOPPED = 0
 		{
-			//unload passengers if applicable
-/*			std::deque<Passenger*>::iterator it = this->passengers.begin();
-			for(it; it != this->passengers.end(); ++it)
-			{
-				//PROBLEM: can't iterate through the queue
-				//SOLUTION: change Car::passengers to a deque
-			}*/
-
-			//load new passengers if any exist
-				//PROBLEM: car doesn't know what passengers are on what floor
-				//SOLUTION: ???
-
 			if(this->passengers.size() == 0) // car is empty
 			{
 				if(this->getFloor() > nextFlrCall) // car is above next queued passenger
 				{
-					this->setState(MOVING_DOWN); // head to pick up next queued passenger
+					this->setState(Car::MOVING_DOWN); // head to pick up next queued passenger
 				}
 				else if(this->getFloor() < nextFlrCall) // car is above next queued passenger
 				{
-					this->setState(MOVING_UP); // head to pick up next queued passenger
+					this->setState(Car::MOVING_UP); // head to pick up next queued passenger
 				}
 			}
 			else // car has passengers aboard
 			{
 				if(this->getFloor() > this->passengers.front()->getFloorEnd())
 				{
-					this->setState(MOVING_DOWN); // head to drop off next queued passenger
+					this->setState(Car::MOVING_DOWN); // head to drop off next queued passenger
 				}
 				else if(this->getFloor() < this->passengers.front()->getFloorEnd())
 				{
-					this->setState(MOVING_UP); // head to drop off next queued passenger
+					this->setState(Car::MOVING_UP); // head to drop off next queued passenger
 				}
 			}
 			break;
 		} // end STOPPED case
 		
-		case 1: //STOPPING = 1
+		case Car::STOPPING: //STOPPING = 1
 		{
 			if(this->timeInState < 2) // still STOPPING
 			{
@@ -174,9 +167,9 @@ void Car::updateState(int nextFlrCall)
 			}
 			else // STOPPING completed
 			{
-				this->setState(STOPPED);
+				this->setState(Car::STOPPED);
 				
-				if(this->prevState == MOVING_UP)
+				if(this->prevState == Car::MOVING_UP)
 				{
 					this->setFloor(this->getFloor() + 1); // arrive at floor above
 				}
@@ -191,7 +184,7 @@ void Car::updateState(int nextFlrCall)
 			break;
 		} // end STOPPING case
 		
-		case 2: //MOVING_UP = 2
+		case Car::MOVING_UP: //MOVING_UP = 2
 		{
 			if(this->timeInState < speed) // still MOVING_UP
 			{
@@ -199,13 +192,13 @@ void Car::updateState(int nextFlrCall)
 			}
 			else // MOVING_UP completed
 			{
-				this->setState(STOPPING); // start stopping
+				this->setState(Car::STOPPING); // start stopping
 				this->setTimeInState(0); // start timing stopping
 			}
 			break;
 		} // end MOVING_UP case
 		
-		case 3: //MOVING_DOWN = 3
+		case Car::MOVING_DOWN: //MOVING_DOWN = 3
 		{
 			if(this->timeInState < speed) // still MOVING_DOWN
 			{
@@ -213,7 +206,7 @@ void Car::updateState(int nextFlrCall)
 			}
 			else // MOVING_DOWN completed
 			{
-				this->setState(STOPPING); // start stopping
+				this->setState(Car::STOPPING); // start stopping
 				this->setTimeInState(0); // start timing stopping
 			}
 			break;
