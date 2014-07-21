@@ -130,7 +130,6 @@ void Car::updateState(int nextFlrCall)
 		case 0: //STOPPED = 0
 		{
 			//unload passengers if applicable
-
 			std::deque<Passenger*>::iterator it = this->passengers.begin();
 			for(it; it != this->passengers.end(); ++it)
 			{

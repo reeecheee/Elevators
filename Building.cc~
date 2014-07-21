@@ -170,6 +170,18 @@ void Building::destroyPassenger(Passenger* passenger)
 	delete passenger;
 }
 
+//The function getAvgTravel() returns the average travel time.
+int getAvgTravel() const
+{
+	return this->avgTravelTime;
+}
+
+//The function getAvgWait() returns the average wait time.
+int getAvgWait() const
+{
+	return this->avgWaitTime;
+}
+
 //The function getFinalPassengerTime() returns the time that the final passenger
 //will be created.
 int Building::getFinalPassengerTime() const
@@ -261,9 +273,9 @@ void Building::transactPassengers()
 				car.addPassenger(this->floors.at(car.getFloor()).nextPass());
 				this->floors.at(car.getFloor()).rmPass();
 			}
-		}
-	}
-}
+		} // end if on stopped cars
+	} // end iteration through all cars
+} // end transactPassengers() function
 
 //The function updateCarStates() calls Car::updateState() on each Car object
 //in the Building's cars vector.

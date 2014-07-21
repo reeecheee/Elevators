@@ -170,6 +170,18 @@ void Building::destroyPassenger(Passenger* passenger)
 	delete passenger;
 }
 
+//The function getAvgTravel() returns the average travel time.
+int Building::getAvgTravel() const
+{
+	return this->avgTravelTime;
+}
+
+//The function getAvgWait() returns the average wait time.
+int Building::getAvgWait() const
+{
+	return this->avgWaitTime;
+}
+
 //The function getFinalPassengerTime() returns the time that the final passenger
 //will be created.
 int Building::getFinalPassengerTime() const

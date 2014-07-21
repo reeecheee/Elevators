@@ -130,12 +130,12 @@ void Car::updateState(int nextFlrCall)
 		case 0: //STOPPED = 0
 		{
 			//unload passengers if applicable
-			std::deque<Passenger*>::iterator it = this->passengers.begin();
+/*			std::deque<Passenger*>::iterator it = this->passengers.begin();
 			for(it; it != this->passengers.end(); ++it)
 			{
 				//PROBLEM: can't iterate through the queue
 				//SOLUTION: change Car::passengers to a deque
-			}
+			}*/
 
 			//load new passengers if any exist
 				//PROBLEM: car doesn't know what passengers are on what floor
