@@ -47,7 +47,7 @@ int Passenger::getTimePickUp() const
 }
 
 //The function getTimeStart() returns the time the passenger was created.
-int getTimeStart() const
+int Passenger::getTimeStart() const
 {
 	return this->timeStart;
 }

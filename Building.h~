@@ -36,6 +36,8 @@ public:
 	void calcTravelTime();
 	void calcWaitTime();
 	void destroyPassenger(Passenger* passenger);
+	int getAvgTravel() const;
+	int getAvgWait() const;
 	int getFinalPassengerTime() const;
 	Passenger* getNextPassOnFlr(int floor) const;
 	int getNextFlrCall() const;

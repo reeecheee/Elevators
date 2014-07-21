@@ -32,6 +32,12 @@ int Passenger::getFloorEnd() const
 	return this->floorEnd;
 }
 
+//The function getFloorStart() returns the passenger's start floor.
+int Passenger::getFloorStart() const
+{
+	return this->floorStart;
+}
+
 //The function getTimeDropOff() returns the time the passenger was dropped off
 //at their destination floor.
 int Passenger::getTimeDropOff() const

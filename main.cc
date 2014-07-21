@@ -25,14 +25,25 @@ int main()
 	     						            10,   // inter-floor speed of cars
 	       						         100); // number of floors (floor 1 = ground)
 
+
+	//PASSENGER TESTING
+	
+/*	Passenger* pass1 = new Passenger(2, 4, 5);
+	std::cout << pass1->getFloorEnd ();*/
+
+	
 	//loop for each second of simulation
 	while(BuildingPtr->getTime() < BuildingPtr->getFinalPassengerTime() + 200) // FIND A BETTER WAY TO EXTEND SIMULATION TO COMPLETION
 	{
 		//create new passenger(s) (if any)
 		BuildingPtr->makePassenger(BuildingPtr->getTime());
+
+		//REMOVE AFTER TESTING
+		//std::cout << BuildingPtr->getNextFlrCall ();
+
 		
 		//update car states
-		//BuildingPtr->updateCarStates();
+		BuildingPtr->updateCarStates();
 
 		//load and/or unload passengers
 		//BuildingPtr->transactPassengers();
@@ -40,7 +51,12 @@ int main()
 		//increment clock
 		BuildingPtr->incrementClock();
 
+		//REMOVE AFTER TESTING
 		std::cout << "Time: " << BuildingPtr->getTime() << std::endl;
+		std::cout << "Car 0: " << BuildingPtr->getCarFlr(0) << std::endl;
+		std::cout << "Car 1: " << BuildingPtr->getCarFlr(1) << std::endl;
+		std::cout << "Car 2: " << BuildingPtr->getCarFlr(2) << std::endl;
+		std::cout << "Car 3: " << BuildingPtr->getCarFlr(3) << std::endl;
 	}
 
 	//print average wait and travel times

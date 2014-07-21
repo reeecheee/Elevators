@@ -196,10 +196,13 @@ Passenger* Building::getNextPassOnFlr(int floor) const
 	return this->floors[floor].nextPass();
 }
 
-//The function getNextFloorCall()
+//The function getNextFlrCall()
 int Building::getNextFlrCall() const
 {
-	return this->passengers.front()->getFloorEnd();
+	if(this->passengers.size() != 0)
+	{
+		return this->passengers.front()->getFloorStart();
+	}
 }
 
 //The function getTime() returns the simulation time in seconds
@@ -220,24 +223,15 @@ void Building::incrementClock()
 //in the appropriate Floor object in the floors vector.
 void Building::makePassenger(int time)
 {
-	bool cont = true; //continue to look for new passengers while true
-	
 	for(auto it : parsed) // iterate through parsed data
 	{
-		while(cont == true)
+		if(it[0] == time)
 		{
-			if(it[0] == time)
-			{
-				//create new passengers
-				Passenger* passengerPtr = new Passenger(it[0], it[1], it[2]);
-				this->passengers.push_back(passengerPtr);
-				this->floors[it[1]].addPass(passengerPtr);
-			}
-			else if(it[0] > time)
-			{
-				cont = false;
-			}
-		} // end while loop
+			//create new passenger
+			Passenger* passengerPtr = new Passenger(it[0], it[1], it[2]);
+			this->passengers.push_back(passengerPtr);
+			this->floors[it[1]].addPass(passengerPtr);
+		}
 	} // end for loop
 } // end makePassenger()
 
@@ -297,4 +291,10 @@ int Building::sizeOfCars() const
 int Building::sizeOfFloors() const
 {
 	return this->floors.size();
+}
+
+//REMOVE AFTER TESTING
+int Building::getCarFlr(int car) const
+{
+	return this->cars.at(car).getFloor();
 }

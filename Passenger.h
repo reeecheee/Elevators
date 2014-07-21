@@ -17,6 +17,7 @@ public:
 	Passenger(int timeStart, int floorStart, int floorEnd);
 	virtual ~Passenger();
 	int getFloorEnd() const;
+	int getFloorStart() const;
 	int getTimeDropOff() const;
 	int getTimePickUp() const;
 	int getTimeStart() const;
