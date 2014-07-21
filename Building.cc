@@ -241,18 +241,29 @@ void Building::rmNextPassFromFlr(int floor)
 //has arrived at their floor.
 void Building::transactPassengers()
 {
-	for(auto car : cars)
+	for(auto car : cars) // iterate through all cars
 	{
 		if(car.getState() == Car::STOPPED)
 		{
-			car.rmPassenger(car.getFloor());
+			//unload passengers from car and note who left
+			std::vector<Passenger*> complete = car.rmPassenger(car.getFloor());
 
+			for(auto pass : complete) //iterate through unloaded passengers
+			{
+				//tabulate wait/travel times and delete passenger
+				this->destroyPassenger(pass);
+			}
 			
-			
-			//determine if passengers are on the floor that need picking up, load them
-		}
-	}
-}
+			//determine if passengers are on the floor; load 'em up till the car's full
+			while(this->floors.at(car.getFloor()).nextPass() != nullptr &&
+			      car.getNumPassAboard() < 8)
+			{
+				car.addPassenger(this->floors.at(car.getFloor()).nextPass());
+				this->floors.at(car.getFloor()).rmPass();
+			}
+		} // end if on stopped cars
+	} // end iteration through all cars
+} // end transactPassengers() function
 
 //The function updateCarStates() calls Car::updateState() on each Car object
 //in the Building's cars vector.

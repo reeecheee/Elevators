@@ -10,6 +10,8 @@
 #ifndef _CAR_H_
 #define _CAR_H_
 
+#include <deque>
+
 class Car
 {
 public:

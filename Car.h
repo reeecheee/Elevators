@@ -33,7 +33,7 @@ public:
 	State getPrevState() const;
 	State getState() const;
 	int getTimeInState() const;
-	void rmPassenger(int floor);
+	std::vector<Passenger*> rmPassenger(int floor);
 	void setFloor(int floor);
 	void setPrevState(State state);
 	void setState(State newState);

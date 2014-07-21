@@ -8,6 +8,7 @@
  */
 
 #include <deque>
+#include <vector>
 #include "Passenger.h"
 #include "Car.h"
 
@@ -72,9 +73,10 @@ int Car::getTimeInState() const
 }
 
 //The function rmPassenger() unloads passengers whose destination floor equals
-//the passed floor.
-void Car::rmPassenger(int floor)
+//the passed floor, and returns a vector containing pointers to those passengers.
+std::vector<Passenger*> Car::rmPassenger(int floor)
 {
+	std::vector<Passenger*> unloaded;
 	std::deque<Passenger*>::iterator it = this->passengers.begin();
 	
 	while(it != this->passengers.end())
@@ -82,6 +84,7 @@ void Car::rmPassenger(int floor)
 		if((*it)->getFloorEnd() == floor)
 		{
 			// erasing the element the iterator points to will increment it
+			unloaded.push_back(*it);
 			this->passengers.erase(it);
 		}
 		else
@@ -89,6 +92,7 @@ void Car::rmPassenger(int floor)
 			++it;
 		}
 	}
+	return unloaded;
 }
 
 //The function setFloor() sets the car's current floor location.
@@ -126,7 +130,8 @@ void Car::updateState(int nextFlrCall)
 		case 0: //STOPPED = 0
 		{
 			//unload passengers if applicable
-			for(int i = 0; i < 8; ++i)
+			std::deque<Passenger*>::iterator it = this->passengers.begin();
+			for(it; it != this->passengers.end(); ++it)
 			{
 				//PROBLEM: can't iterate through the queue
 				//SOLUTION: change Car::passengers to a deque

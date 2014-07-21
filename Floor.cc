@@ -35,14 +35,24 @@ void Floor::addPass(Passenger* passenger)
 //at the floor.
 Passenger* Floor::nextPass() const
 {
-	return this->passengers.front();
+	if(!this->passengers.empty()) // guard against runtime errors
+	{
+		return this->passengers.front();
+	}
+	else
+	{
+		return nullptr;
+	}
 }
 
 //The function rmPass() pops the first passenger in the queue and returns
 //a pointer to that passenger.
 void Floor::rmPass()
 {
-	this->passengers.pop();
+	if(!this->passengers.empty()) // guard against runtime errors
+	{
+		this->passengers.pop();
+	}
 }
 
 

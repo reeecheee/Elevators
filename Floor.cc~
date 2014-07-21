@@ -25,8 +25,8 @@ Floor::~Floor()
 
 //MEMBER FUNCTIONS
 
-//The function addPassenger() adds a pointer to a passenger to the floor's queue.
-void Floor::addPassenger(Passenger* passenger)
+//The function addPass() adds a pointer to a passenger to the floor's queue.
+void Floor::addPass(Passenger* passenger)
 {
 	this->passengers.push(passenger);
 }
@@ -42,7 +42,10 @@ Passenger* Floor::nextPass() const
 //a pointer to that passenger.
 void Floor::rmPass()
 {
-	this->passengers.pop();
+	if(!this->passengers.empty())
+	{
+		this->passengers.pop();
+	}
 }
 
 
