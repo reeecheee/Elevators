@@ -59,7 +59,6 @@ Building::Building(std::string filepath, int numCars, int speed, int numFloors)
 					{
 						// convert stream to int assign to tok[tokIndex]
 						toks[tokIndex] = atoi(ss.str().c_str()); 
-						//std::cout << "toks[" << tokIndex << "]: " << toks[tokIndex] << std::endl; //REMOVE AFTER TESTING
 						++tokIndex; // increment token index						
 						ss.str(std::string()); // clear the stream
 					}				
@@ -70,11 +69,9 @@ Building::Building(std::string filepath, int numCars, int speed, int numFloors)
 			{
 				// convert stream to int assign to tok[tokIndex]
 				toks[tokIndex] = atoi(ss.str().c_str()); 
-				//std::cout << "toks[" << tokIndex << "]: " << toks[tokIndex] << std::endl; //REMOVE AFTER TESTING
 				++tokIndex; // increment token index						
 				ss.str(std::string()); // clear the stream
 			}
-			//std::cout << line << std::endl; //REMOVE AFTER TESTING
 			
 			//add tokens to parsed vector of arrays
 			this->parsed.push_back(toks);
@@ -251,38 +248,93 @@ void Building::rmNextPassFromFlr(int floor)
 //has arrived at their floor.
 void Building::transactPassengers()
 {
-	std::vector<Car>::iterator iter = this->cars.begin();
-	for(iter; iter != this->cars.end(); ++iter) // iterate through all cars
+	std::vector<Car>::iterator carIter = this->cars.begin();
+	for(carIter; carIter != this->cars.end(); ++carIter) // iterate through all cars
 	{
-		if(iter->getState() == Car::STOPPED)
+		if(carIter->getState() == Car::STOPPED)
 		{
 			//unload passengers from car and note who left
-			std::vector<Passenger*> complete = iter->rmPassenger(iter->getFloor());
+			std::vector<Passenger*> complete = carIter->rmPassenger(carIter->getFloor());
 
 			if(complete.size() != 0) // passengers were unloaded
 			{
 				std::vector<Passenger*>::iterator passIter = complete.begin();
+/*				while(passIter != complete.end()) //iterate through unloaded passengers
+				{				
+					//tabulate wait/travel times and delete passenger
+					this->destroyPassenger(*passIter);
+				}*/
 				for(passIter; passIter != complete.end(); ++passIter) //iterate through unloaded passengers
-				{
-					std::cout << "Pass Start time: " << (*passIter)->getTimeStart() << std::endl; //REMOVE AFTER TESTING
-					
+				{				
 					//tabulate wait/travel times and delete passenger
 					this->destroyPassenger(*passIter);
 				}
 			}
 			
 			//determine if passengers are on the floor; load 'em up till the car's full
-			while(this->floors.at(iter->getFloor()).nextPass() != nullptr &&
-			      iter->getNumPassAboard() < 8)
+			while(this->floors.at(carIter->getFloor()).nextPass() != nullptr &&
+			      carIter->getNumPassAboard() < 8)
 			{
-				iter->addPassenger(this->floors.at(iter->getFloor()).nextPass());
-				this->floors.at(iter->getFloor()).rmPass();
+				carIter->addPassenger(this->floors.at(carIter->getFloor()).nextPass());
 				
-				//REMOVE PASSENGER FROM BUILDING DEQUE
+				//remove passenger from building deque <-----LEFT OFF HERE
+				std::deque<Passenger*>::iterator passIter = this->passengers.begin();
+				while(passIter != this->passengers.end())
+				{
+					if(*passIter == this->floors.at(carIter->getFloor()).nextPass())
+					{
+						this->passengers.erase(passIter);
+					}
+					else
+					{
+						++passIter; //iterate passIter if it wasn't iterated by erase()
+					}
+				}
+
+				//remove passenger from floor's queue
+				this->floors.at(carIter->getFloor()).rmPass();
 			}
 		} // end if on stopped cars
 	} // end iteration through all cars
 } // end transactPassengers() function
+
+//The function passOnNext() returns true if there is a passenger on the next floor
+//that the passed car is approaching.
+bool Building::passOnNext(int car) const
+{
+	int nextFloor;
+	
+	if(this->cars.at(car).getState() == Car::MOVING_UP) //car is MOVING_UP
+	{
+		nextFloor = this->cars.at(car).getFloor() + 1; //next floor is above
+
+		if(this->floors.at(nextFloor).nextPass() == nullptr) //next floor is empty
+		{
+			return false;
+		}
+		else // next floor has passengers waiting
+		{
+			return true;
+		}
+	}
+	else if(this->cars.at(car).getState() == Car::MOVING_DOWN) // car is MOVING_DOWN
+	{
+		nextFloor = this->cars.at(car).getFloor() - 1; // next floor is below
+
+		if(this->floors.at(nextFloor).nextPass() == nullptr) //next floor is empty
+		{
+			return false;
+		}
+		else // next floor has passengers waiting
+		{
+			return true;
+		}
+	}
+	else // car is STOPPED or STOPPING, do nothing
+	{
+		return false;
+	}
+} // end function passOnNext()
 
 //The function updateCarStates() calls Car::updateState() on each Car object
 //in the Building's cars vector.
@@ -293,7 +345,9 @@ void Building::updateCarStates()
 	std::vector<Car>::iterator iter = this->cars.begin();
 	for(iter; iter != this->cars.end(); ++iter)
 	{
-		iter->updateState(nextFlrCall);
+		int carNum = std::distance(this->cars.begin(), iter); //convert iterator to index
+		bool passOnNext = Building::passOnNext(carNum); // peek at next floor
+		iter->updateState(nextFlrCall, passOnNext);
 	}
 }
 

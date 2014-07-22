@@ -24,10 +24,11 @@ public:
 		MOVING_DOWN // = 3
 	};
 
-	Car(int speed);
+	Car(int carNum, int speed);
 	virtual ~Car();
 
 	void addPassenger(Passenger* passenger);
+	int getCarNum() const;
 	int getFloor() const;
 	int getNumPassAboard() const;
 	Car::State getPrevState() const;
@@ -38,10 +39,11 @@ public:
 	void setPrevState(Car::State state);
 	void setState(State newState);
 	void setTimeInState(int time);
-	void updateState(int nextFlrCall);
+	void updateState(int nextFlrCall, bool passOnNext);
 
 private:
 
+	int carNum;
 	std::deque<Passenger*> passengers;
 	int floor = 0;
 	Car::State prevState = STOPPED;

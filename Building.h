@@ -44,6 +44,7 @@ public:
 	int getTime() const;
 	void incrementClock();
 	void makePassenger(int time);
+	bool passOnNext(int car) const;
 	void rmNextPassFromFlr(int floor); // REMOVE IF UNUSED
 	void transactPassengers();
 	void updateCarStates();
