@@ -52,6 +52,7 @@ public:
 	int sizeOfCars() const;
 	int sizeOfFloors() const;
 	int getCarFlr(int car) const;
+	int getCarState(int car) const;
 
 private:
 

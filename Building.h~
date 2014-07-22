@@ -51,6 +51,7 @@ public:
 	//REMOVE THESE FUNCTIONS AFTER TESTING 
 	int sizeOfCars() const;
 	int sizeOfFloors() const;
+	int getCarFlr(int car) const;
 
 private:
 

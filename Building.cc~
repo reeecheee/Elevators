@@ -203,6 +203,10 @@ int Building::getNextFlrCall() const
 	{
 		return this->passengers.front()->getFloorStart();
 	}
+	else
+	{
+		return -1;
+	}
 }
 
 //The function getTime() returns the simulation time in seconds
@@ -247,25 +251,34 @@ void Building::rmNextPassFromFlr(int floor)
 //has arrived at their floor.
 void Building::transactPassengers()
 {
-	for(auto car : cars) // iterate through all cars
+	std::vector<Car>::iterator iter = this->cars.begin();
+	for(iter; iter != this->cars.end(); ++iter) // iterate through all cars
 	{
-		if(car.getState() == Car::STOPPED)
+		if(iter->getState() == Car::STOPPED)
 		{
 			//unload passengers from car and note who left
-			std::vector<Passenger*> complete = car.rmPassenger(car.getFloor());
+			std::vector<Passenger*> complete = iter->rmPassenger(iter->getFloor());
 
-			for(auto pass : complete) //iterate through unloaded passengers
+			if(complete.size() != 0) // passengers were unloaded
 			{
-				//tabulate wait/travel times and delete passenger
-				this->destroyPassenger(pass);
+				std::vector<Passenger*>::iterator passIter = complete.begin();
+				for(passIter; passIter != complete.end(); ++passIter) //iterate through unloaded passengers
+				{
+					std::cout << "Pass Start time: " << (*passIter)->getTimeStart() << std::endl; //REMOVE AFTER TESTING
+					
+					//tabulate wait/travel times and delete passenger
+					this->destroyPassenger(*passIter);
+				}
 			}
 			
 			//determine if passengers are on the floor; load 'em up till the car's full
-			while(this->floors.at(car.getFloor()).nextPass() != nullptr &&
-			      car.getNumPassAboard() < 8)
+			while(this->floors.at(iter->getFloor()).nextPass() != nullptr &&
+			      iter->getNumPassAboard() < 8)
 			{
-				car.addPassenger(this->floors.at(car.getFloor()).nextPass());
-				this->floors.at(car.getFloor()).rmPass();
+				iter->addPassenger(this->floors.at(iter->getFloor()).nextPass());
+				this->floors.at(iter->getFloor()).rmPass();
+				
+				//REMOVE PASSENGER FROM BUILDING DEQUE
 			}
 		} // end if on stopped cars
 	} // end iteration through all cars
@@ -277,9 +290,10 @@ void Building::updateCarStates()
 {
 	int nextFlrCall = this->getNextFlrCall();
 	
-	for(auto car : this->cars)
+	std::vector<Car>::iterator iter = this->cars.begin();
+	for(iter; iter != this->cars.end(); ++iter)
 	{
-		car.updateState(nextFlrCall);
+		iter->updateState(nextFlrCall);
 	}
 }
 
@@ -299,4 +313,10 @@ int Building::sizeOfFloors() const
 int Building::getCarFlr(int car) const
 {
 	return this->cars.at(car).getFloor();
+}
+
+//REMOVE AFTER TESTING
+int Building::getCarState(int car) const
+{
+	return this->cars.at(car).getState();
 }

@@ -8,6 +8,7 @@
  */
 
 #include <deque>
+#include <iostream> //REMOVE AFTER TESTING
 #include <vector>
 #include "Passenger.h"
 #include "Car.h"
@@ -30,7 +31,7 @@ Car::~Car()
 //car is stopped at, up to the capacity of the car.
 void Car::addPassenger(Passenger* passenger)
 {
-	while(this->passengers.size() <= 8)
+	if(this->passengers.size() <= 8)
 	{
 		this->passengers.push_back(passenger);
 	}
@@ -192,6 +193,7 @@ void Car::updateState(int nextFlrCall)
 			}
 			else // MOVING_UP completed
 			{
+				this->setPrevState(Car::MOVING_UP); // set previous state
 				this->setState(Car::STOPPING); // start stopping
 				this->setTimeInState(0); // start timing stopping
 			}
@@ -206,6 +208,7 @@ void Car::updateState(int nextFlrCall)
 			}
 			else // MOVING_DOWN completed
 			{
+				this->setPrevState(Car::MOVING_DOWN); // set previous state
 				this->setState(Car::STOPPING); // start stopping
 				this->setTimeInState(0); // start timing stopping
 			}
