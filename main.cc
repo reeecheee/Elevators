@@ -34,12 +34,12 @@ int main()
 		//update car states
 		BuildingPtr->updateCarStates();
 
-		std::cout << "Time: " << BuildingPtr->getTime() << std::endl;  //REMOVE AFTER TESTING
+/*		std::cout << "Time: " << BuildingPtr->getTime() << std::endl;  //REMOVE AFTER TESTING
 		std::cout << "Car 0: Flr: " << BuildingPtr->getCarFlr(0) << " St: " << BuildingPtr->getCarState(0) << std::endl;  //REMOVE AFTER TESTING
 		std::cout << "Car 1: Flr: " << BuildingPtr->getCarFlr(1) << " St: " << BuildingPtr->getCarState(1) << std::endl;  //REMOVE AFTER TESTING
 		std::cout << "Car 2: Flr: " << BuildingPtr->getCarFlr(2) << " St: " << BuildingPtr->getCarState(2) << std::endl;  //REMOVE AFTER TESTING
 		std::cout << "Car 3: Flr: " << BuildingPtr->getCarFlr(3) << " St: " << BuildingPtr->getCarState(3) << std::endl;  //REMOVE AFTER TESTING
-		std::cout << "NxtFlrCall: " << BuildingPtr->getNextFlrCall() << std::endl;  //REMOVE AFTER TESTING
+		std::cout << "NxtFlrCall: " << BuildingPtr->getNextFlrCall() << std::endl;  //REMOVE AFTER TESTING */
 
 		//load and/or unload passengers
 		BuildingPtr->transactPassengers();
@@ -54,16 +54,16 @@ int main()
 	int firstTravel = BuildingPtr->getAvgTravel();
 	int firstWait = BuildingPtr->getAvgWait();
 	std::cout << "Average Wait Time: " << firstWait << std::endl;
-	std::cout << "Average Travel Time: " << firstTravel << std::endl;
+	std::cout << "Average Travel Time: " << firstTravel << std::endl; 
 
 	//rerun simulation with a 5 second speed
-/*	BuildingPtr = Building::Instance("/home/reechee/Documents/Cpp/HW6/HW6-Elevators.csv",
+	BuildingPtr = Building::Instance("/home/reechee/Documents/Cpp/HW6/HW6-Elevators.csv",
     						               4,    // number of cars
      						               5,   // inter-floor speed of cars (improved)
-       						            100); // number of floors (floor 1 = ground)*/
+       						            100); // number of floors (floor 1 = ground)
 
-/*	//rerun simulation: loop for each second of simulation
-	while(BuildingPtr->getTime() < BuildingPtr->getFinalPassengerTime() + 1000) // FIND A BETTER WAY TO EXTEND SIMULATION TO COMPLETION
+	//rerun simulation: loop for each second of simulation
+	while(BuildingPtr->getTime() < BuildingPtr->getFinalPassengerTime() + 20000) // FIND A BETTER WAY TO EXTEND SIMULATION TO COMPLETION
 	{
 		//create new passenger(s) (if any)
 		BuildingPtr->makePassenger(BuildingPtr->getTime());
@@ -76,17 +76,17 @@ int main()
 
 		//increment clock
 		BuildingPtr->incrementClock();
-	}*/
+	}
 
 	//print new average wait and travel times, with percent changes from first simulation
-/*	BuildingPtr->calcWaitTime();
+	BuildingPtr->calcWaitTime();
 	BuildingPtr->calcTravelTime();
 	int newTravel = BuildingPtr->getAvgTravel();
 	int newWait = BuildingPtr->getAvgWait();
-	std::cout << "New Average Wait Time: " << firstWait << std::endl;
+	std::cout << "New Average Wait Time: " << newWait << std::endl;
 	std::cout << "(" << ((firstWait - newWait)/firstWait)*100 << "% reduction)" << std::endl;
-	std::cout << "New Average Travel Time: " << firstTravel << std::endl;
-	std::cout << "(" << ((firstTravel - newTravel)/firstTravel)*100 << "% reduction)" << std::endl;*/
+	std::cout << "New Average Travel Time: " << newTravel << std::endl;
+	std::cout << "(" << ((firstTravel - newTravel)/firstTravel)*100 << "% reduction)" << std::endl;
 	
 	return 0;
 }

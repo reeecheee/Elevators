@@ -34,8 +34,8 @@ void Car::addPassenger(Passenger* passenger)
 {
 	if(this->passengers.size() <= 8)
 	{
-		std::cout << "Passenger going to floor " << passenger->getFloorEnd() <<  // REMOVE AFTER TESTING
-			          " got into car " << this->getCarNum() << std::endl; // REMOVE AFTER TESTING
+/*		std::cout << "Passenger going to floor " << passenger->getFloorEnd() <<  // REMOVE AFTER TESTING
+			          " got into car " << this->getCarNum() << std::endl; // REMOVE AFTER TESTING*/
 		this->passengers.push_back(passenger);
 	}
 }
@@ -94,8 +94,8 @@ std::vector<Passenger*> Car::rmPassenger(int floor)
 		if((*it)->getFloorEnd() == floor)
 		{
 			// erasing the element the iterator points to will increment it
-			std::cout << "Passenger got off at floor " << (*it)->getFloorEnd() << //REMOVE AFTER TESTING
-				           " from car " << this->getCarNum() << std::endl; //REMOVE AFTER TESTING
+/*			std::cout << "Passenger got off at floor " << (*it)->getFloorEnd() << //REMOVE AFTER TESTING
+				           " from car " << this->getCarNum() << std::endl; //REMOVE AFTER TESTING*/
 			unloaded.push_back(*it);
 			this->passengers.erase(it);
 		}
@@ -225,7 +225,7 @@ void Car::updateState(int nextFlrCall, bool passOnNext)
 					this->setState(Car::STOPPING); // start stopping
 					this->setTimeInState(0); // start timing stopping					
 				}
-				else if(this->getFloor()+1 == this->passengers.front()->getFloorEnd()) // <----- LEFT OFF HERE
+				else if(this->getFloor()+1 == this->passengers.front()->getFloorEnd())
 				{  
 					this->setPrevState(Car::MOVING_UP); // set previous state
 					this->setState(Car::STOPPING); // start stopping

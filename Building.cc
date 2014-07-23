@@ -109,7 +109,7 @@ Building::~Building()
 //travelTimes vector.  Travel time = (drop off time) - (pick up time)
 void Building::addTravelTime(int travelTime)
 {
-	std::cout << "travel: " << travelTime << std::endl; //REMOVE AFTER TESTING
+	//std::cout << "travel: " << travelTime << std::endl; //REMOVE AFTER TESTING
 	this->travelTimes.push_back(travelTime);
 }
 
@@ -117,7 +117,7 @@ void Building::addTravelTime(int travelTime)
 //waitTimes vector.  Wait time = (pick up time) - (start time)
 void Building::addWaitTime(int waitTime)
 {
-	std::cout << "wait: " << waitTime << std::endl; //REMOVE AFTER TESTING
+	//std::cout << "wait: " << waitTime << std::endl; //REMOVE AFTER TESTING
 	this->waitTimes.push_back(waitTime);
 }
 
@@ -153,15 +153,10 @@ void Building::calcWaitTime()
 		sum += *iter;
 		++count;
 	}
-/*	for(int i : waitTimes)
-	{
-		sum += i;
-		++count;
-	}*/
 
-	std::cout << "sum: " << sum << std::endl;
-	std::cout << "count: " << count << std::endl;
-	//std::cout << "avg: " << avg << std::endl;
+	//std::cout << "sum: " << sum << std::endl; // REMOVE AFTER TESTING
+	//std::cout << "count: " << count << std::endl; // REMOVE AFTER TESTING
+	//std::cout << "avg: " << avg << std::endl; // REMOVE AFTER TESTING
 	
 	avg = sum / count;
 	this->avgWaitTime = avg;
@@ -172,7 +167,7 @@ void Building::calcWaitTime()
 void Building::destroyPassenger(Passenger* passenger)
 {
 	//bandaid fix to prevent segfaults from deleting nonexistent passengers
-	std::cout << "passed start time: " << passenger->getTimeStart() << std::endl; // REMOVE AFTER TESTING
+	//std::cout << "passed start time: " << passenger->getTimeStart() << std::endl; // REMOVE AFTER TESTING
 	
 	for(int i = 0; i < this->passengers.size(); ++i)
 	{
@@ -181,8 +176,8 @@ void Building::destroyPassenger(Passenger* passenger)
 		int tempWait = passenger->getTimePickUp() - passenger->getTimeStart();
 		int tempTravel = passenger->getTimeDropOff() - passenger->getTimePickUp();
 
-		std::cout << "tempWait: " << tempWait << std::endl; //REMOVE AFTER TESTING
-		std::cout << "tempTravel: " << tempTravel << std::endl; //REMOVE AFTER TESTING
+		//std::cout << "tempWait: " << tempWait << std::endl; //REMOVE AFTER TESTING
+		//std::cout << "tempTravel: " << tempTravel << std::endl; //REMOVE AFTER TESTING
 		this->waitTimes.push_back(tempWait);
 		this->travelTimes.push_back(tempTravel);
 		
