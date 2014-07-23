@@ -1,7 +1,13 @@
 /*
  *	 Building.cc
  * 
- *  Building class source file: 
+ *  Building class source file: The Building class represents a building in which
+ *  and elevator simulation is ran.  This class is a singleton meaning only one
+ *  instantiation is allowed at a time.  The building constructs all the passenger,
+ *  car, and floor objects dynamically.  The passengers are deleted as they are
+ *  dropped off at their destinations.  When destroyed, the passenger's wait and
+ *  travel times are noted and added to a collection of the times.  After the
+ *  simulation is completed, the times are averaged and displayed in main.cc.
  * 
  *  Author: Mike Ricci
  *  Date: 20140716
@@ -109,7 +115,6 @@ Building::~Building()
 //travelTimes vector.  Travel time = (drop off time) - (pick up time)
 void Building::addTravelTime(int travelTime)
 {
-	//std::cout << "travel: " << travelTime << std::endl; //REMOVE AFTER TESTING
 	this->travelTimes.push_back(travelTime);
 }
 
@@ -117,7 +122,6 @@ void Building::addTravelTime(int travelTime)
 //waitTimes vector.  Wait time = (pick up time) - (start time)
 void Building::addWaitTime(int waitTime)
 {
-	//std::cout << "wait: " << waitTime << std::endl; //REMOVE AFTER TESTING
 	this->waitTimes.push_back(waitTime);
 }
 
@@ -154,10 +158,6 @@ void Building::calcWaitTime()
 		++count;
 	}
 
-	//std::cout << "sum: " << sum << std::endl; // REMOVE AFTER TESTING
-	//std::cout << "count: " << count << std::endl; // REMOVE AFTER TESTING
-	//std::cout << "avg: " << avg << std::endl; // REMOVE AFTER TESTING
-	
 	avg = sum / count;
 	this->avgWaitTime = avg;
 }
@@ -167,17 +167,11 @@ void Building::calcWaitTime()
 void Building::destroyPassenger(Passenger* passenger)
 {
 	//bandaid fix to prevent segfaults from deleting nonexistent passengers
-	//std::cout << "passed start time: " << passenger->getTimeStart() << std::endl; // REMOVE AFTER TESTING
-	
 	for(int i = 0; i < this->passengers.size(); ++i)
 	{
-		//std::cout << "start time in building deque: " << this->passengers.at(i)->getTimeStart() << std::endl; //REMOVE AFTER TESTING
-			
 		int tempWait = passenger->getTimePickUp() - passenger->getTimeStart();
 		int tempTravel = passenger->getTimeDropOff() - passenger->getTimePickUp();
 
-		//std::cout << "tempWait: " << tempWait << std::endl; //REMOVE AFTER TESTING
-		//std::cout << "tempTravel: " << tempTravel << std::endl; //REMOVE AFTER TESTING
 		this->waitTimes.push_back(tempWait);
 		this->travelTimes.push_back(tempTravel);
 		
@@ -256,13 +250,6 @@ void Building::makePassenger(int time)
 		}
 	} // end for loop
 } // end makePassenger()
-
-//The function rmNextPassFromFlr() pops the next passenger in the passed Floor's
-//queue.
-void Building::rmNextPassFromFlr(int floor)
-{
-	this->floors[floor].rmPass();
-}
 
 //The function transactPassengers() unloads passengers from cars if they've reached
 //their destination, and loads passengers into cars if a car with unused capacity
@@ -369,28 +356,4 @@ void Building::updateCarStates()
 		bool passOnNext = Building::passOnNext(carNum); // peek at next floor
 		iter->updateState(nextFlrCall, passOnNext);
 	}
-}
-
-//REMOVE AFTER TESTING
-int Building::sizeOfCars() const
-{
-	return this->cars.size();
-}
-
-//REMOVE AFTER TESTING
-int Building::sizeOfFloors() const
-{
-	return this->floors.size();
-}
-
-//REMOVE AFTER TESTING
-int Building::getCarFlr(int car) const
-{
-	return this->cars.at(car).getFloor();
-}
-
-//REMOVE AFTER TESTING
-int Building::getCarState(int car) const
-{
-	return this->cars.at(car).getState();
 }

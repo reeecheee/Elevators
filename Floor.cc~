@@ -1,7 +1,9 @@
 /*
  *	 Floor.cc
  * 
- *  Floor class source file: 
+ *  Floor class source file: The Floor class represents a floor in a building.
+ *  The floor object can hold passengers, and provides functions to add and
+ *  remove passengers.
  * 
  *  Author: Mike Ricci
  *  Date: 20140716
@@ -35,14 +37,21 @@ void Floor::addPass(Passenger* passenger)
 //at the floor.
 Passenger* Floor::nextPass() const
 {
-	return this->passengers.front();
+	if(!this->passengers.empty()) // guard against runtime errors
+	{
+		return this->passengers.front();
+	}
+	else
+	{
+		return nullptr;
+	}
 }
 
 //The function rmPass() pops the first passenger in the queue and returns
 //a pointer to that passenger.
 void Floor::rmPass()
 {
-	if(!this->passengers.empty())
+	if(!this->passengers.empty()) // guard against runtime errors
 	{
 		this->passengers.pop();
 	}

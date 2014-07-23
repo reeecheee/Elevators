@@ -3,13 +3,22 @@
  *  20140716, Mike Ricci
  *  HW6: Elevator Simulation
  *	 main.cpp *
- *  SUMMARY: 
+ *  SUMMARY:  This program uses the classes Passenger, Car, Floor, and Building to
+ *  conduct a discrete simulation of elevators in a building.
  *
- *  INPUT: 
+ *  INPUT: A CSV file is provided which defines passengers by the time they arrive
+ *  at their origin floor, their origin floor, and their destination floor.
  *
- *  OUTPUT: 
+ *  OUTPUT: The program collects wait times and travel times from the passengers as
+ *  they are dropped off at their destination floors.  After completion of the simulation,
+ *  the wait times and travel times are averaged.  The simulation is ran a second time,
+ *  using an interfloor speed of the cars of 5 seconds (half of the original 10).
+ *  new average wait and travel times are calculated and the percent reduction
+ *  achieved by the improved speed is displayed.
  *
- *  LIMITATIONS: Floor numbering scheme
+ *  LIMITATIONS: Floor 0 is the start floor but that floor is never used by passengers;
+ *  There were some problems that I was unable to resolve and I resorted to "band
+ *  aid" fixes to prevent fatal errors; 
  */
 
 #include <iostream>
@@ -22,7 +31,7 @@ int main()
 	Building *BuildingPtr;
 	BuildingPtr = Building::Instance("/home/reechee/Documents/Cpp/HW6/HW6-Elevators.csv",
 	    						            4,    // number of cars
-	     						            10,   // inter-floor speed of cars
+	     						            5,   // inter-floor speed of cars
 	       						         100); // number of floors (floor 1 = ground)
 	
 	//run simulation: loop for each second of simulation
@@ -33,13 +42,6 @@ int main()
 
 		//update car states
 		BuildingPtr->updateCarStates();
-
-/*		std::cout << "Time: " << BuildingPtr->getTime() << std::endl;  //REMOVE AFTER TESTING
-		std::cout << "Car 0: Flr: " << BuildingPtr->getCarFlr(0) << " St: " << BuildingPtr->getCarState(0) << std::endl;  //REMOVE AFTER TESTING
-		std::cout << "Car 1: Flr: " << BuildingPtr->getCarFlr(1) << " St: " << BuildingPtr->getCarState(1) << std::endl;  //REMOVE AFTER TESTING
-		std::cout << "Car 2: Flr: " << BuildingPtr->getCarFlr(2) << " St: " << BuildingPtr->getCarState(2) << std::endl;  //REMOVE AFTER TESTING
-		std::cout << "Car 3: Flr: " << BuildingPtr->getCarFlr(3) << " St: " << BuildingPtr->getCarState(3) << std::endl;  //REMOVE AFTER TESTING
-		std::cout << "NxtFlrCall: " << BuildingPtr->getNextFlrCall() << std::endl;  //REMOVE AFTER TESTING */
 
 		//load and/or unload passengers
 		BuildingPtr->transactPassengers();
@@ -63,7 +65,8 @@ int main()
        						            100); // number of floors (floor 1 = ground)
 
 	//rerun simulation: loop for each second of simulation
-	while(BuildingPtr->getTime() < BuildingPtr->getFinalPassengerTime() + 20000) // FIND A BETTER WAY TO EXTEND SIMULATION TO COMPLETION
+   // BETTER WAY TO EXTEND SIMULATION TO COMPLETION?
+	while(BuildingPtr->getTime() < BuildingPtr->getFinalPassengerTime() + 20000)
 	{
 		//create new passenger(s) (if any)
 		BuildingPtr->makePassenger(BuildingPtr->getTime());

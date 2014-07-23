@@ -1,14 +1,15 @@
 /*
  *	 Car.cc
  * 
- *  Car class source file: 
+ *  Car class source file: The Car class represents an elevator car.  The car can
+ *  be in a number of states.  Functions are provided to allow the operation of the
+ *  car, as well as the addition/removal of passengers from the car.
  * 
  *  Author: Mike Ricci
  *  Date: 20140716
  */
 
 #include <deque>
-#include <iostream> //REMOVE AFTER TESTING
 #include <vector>
 #include "Passenger.h"
 #include "Car.h"
@@ -34,8 +35,6 @@ void Car::addPassenger(Passenger* passenger)
 {
 	if(this->passengers.size() <= 8)
 	{
-/*		std::cout << "Passenger going to floor " << passenger->getFloorEnd() <<  // REMOVE AFTER TESTING
-			          " got into car " << this->getCarNum() << std::endl; // REMOVE AFTER TESTING*/
 		this->passengers.push_back(passenger);
 	}
 }
@@ -88,16 +87,23 @@ std::vector<Passenger*> Car::rmPassenger(int floor)
 {
 	std::vector<Passenger*> unloaded;
 	std::deque<Passenger*>::iterator it = this->passengers.begin();
+	int prevUnload = 0; //last minute bandaid fix
 	
 	while(it != this->passengers.end())
 	{
 		if((*it)->getFloorEnd() == floor)
 		{
-			// erasing the element the iterator points to will increment it
-/*			std::cout << "Passenger got off at floor " << (*it)->getFloorEnd() << //REMOVE AFTER TESTING
-				           " from car " << this->getCarNum() << std::endl; //REMOVE AFTER TESTING*/
-			unloaded.push_back(*it);
-			this->passengers.erase(it);
+			if((*it)->getTimeStart() == prevUnload) // last minute bandaid fix
+			{
+				++it; // don't try to unload passengers more than once...segfault
+			}
+			else
+			{
+				// erasing the element the iterator points to will increment it
+				unloaded.push_back(*it);
+				this->passengers.erase(it);
+				prevUnload = (*it)->getTimeStart();
+			}
 		}
 		else
 		{

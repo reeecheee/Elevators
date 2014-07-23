@@ -1,7 +1,9 @@
 /*
  *	 Floor.cc
  * 
- *  Floor class source file: 
+ *  Floor class source file: The Floor class represents a floor in a building.
+ *  The floor object can hold passengers, and provides functions to add and
+ *  remove passengers.
  * 
  *  Author: Mike Ricci
  *  Date: 20140716
@@ -54,7 +56,3 @@ void Floor::rmPass()
 		this->passengers.pop();
 	}
 }
-
-
-
-

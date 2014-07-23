@@ -1,7 +1,13 @@
 /*
  *	 Building.h
  * 
- *  Building class header file: 
+ *  Building class header file: The Building class represents a building in which
+ *  and elevator simulation is ran.  This class is a singleton meaning only one
+ *  instantiation is allowed at a time.  The building constructs all the passenger,
+ *  car, and floor objects dynamically.  The passengers are deleted as they are
+ *  dropped off at their destinations.  When destroyed, the passenger's wait and
+ *  travel times are noted and added to a collection of the times.  After the
+ *  simulation is completed, the times are averaged and displayed in main.cc.
  * 
  *  Author: Mike Ricci
  *  Date: 20140716
@@ -10,12 +16,9 @@
 #ifndef _BUILDING_H_
 #define _BUILDING_H_
 
-//WHY DID I HAVE TO INCLUDE THESE HERE TO GET IT TO COMPILE SUCCESSFULLY?
 #include <array>
 #include <cstdlib>
 #include <vector>
-//#include <queue>
-#include <iostream> // REMOVE IF UNUSED
 #include <fstream>
 #include <sstream>
 #include <string>
@@ -45,15 +48,8 @@ public:
 	void incrementClock();
 	void makePassenger(int time);
 	bool passOnNext(int car) const;
-	void rmNextPassFromFlr(int floor); // REMOVE IF UNUSED
 	void transactPassengers();
 	void updateCarStates();
-
-	//REMOVE THESE FUNCTIONS AFTER TESTING 
-	int sizeOfCars() const;
-	int sizeOfFloors() const;
-	int getCarFlr(int car) const;
-	int getCarState(int car) const;
 
 private:
 
@@ -74,4 +70,3 @@ private:
 };
 
 #endif // _BUILDING_H_
-

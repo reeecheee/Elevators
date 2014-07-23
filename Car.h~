@@ -28,6 +28,7 @@ public:
 	virtual ~Car();
 
 	void addPassenger(Passenger* passenger);
+	int getCarNum() const;
 	int getFloor() const;
 	int getNumPassAboard() const;
 	Car::State getPrevState() const;

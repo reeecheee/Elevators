@@ -1,7 +1,9 @@
 /*
  *	 Car.h
  * 
- *  Car class header file: 
+ *  Car class header file: The Car class represents an elevator car.  The car can
+ *  be in a number of states.  Functions are provided to allow the operation of the
+ *  car, as well as the addition/removal of passengers from the car.
  * 
  *  Author: Mike Ricci
  *  Date: 20140716
@@ -54,4 +56,3 @@ private:
 }; // end Car class
 
 #endif // _CAR_H_
-

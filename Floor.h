@@ -1,7 +1,9 @@
 /*
  *	 Floor.h
  * 
- *  Floor class header file: 
+ *  Floor class header file: The Floor class represents a floor in a building.
+ *  The floor object can hold passengers, and provides functions to add and
+ *  remove passengers.
  * 
  *  Author: Mike Ricci
  *  Date: 20140716
@@ -30,4 +32,3 @@ private:
 }; // end Floor class
 
 #endif // _FLOOR_H_
-
