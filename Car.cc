@@ -163,15 +163,19 @@ void Car::updateState(int nextFlrCall, bool passOnNext)
 			}
 			else // car has passengers aboard
 			{
-				if(this->getFloor() > this->passengers.front()->getFloorEnd())
+				if(this->passengers.front()->getFloorEnd() >= 0 && // guard against OOR excepts
+				   this->passengers.front()->getFloorEnd() <= 99)
 				{
-					this->setState(Car::MOVING_DOWN); // head to drop off next queued passenger
-					this->setTimeInState(0);
-				}
-				else if(this->getFloor() < this->passengers.front()->getFloorEnd())
-				{
-					this->setState(Car::MOVING_UP); // head to drop off next queued passenger
-					this->setTimeInState(0);
+					if(this->getFloor() > this->passengers.front()->getFloorEnd())
+					{
+						this->setState(Car::MOVING_DOWN); // head to drop off next queued passenger
+						this->setTimeInState(0);
+					}
+					else if(this->getFloor() < this->passengers.front()->getFloorEnd())
+					{
+						this->setState(Car::MOVING_UP); // head to drop off next queued passenger
+						this->setTimeInState(0);
+					}
 				}
 			}
 			break;
@@ -189,11 +193,17 @@ void Car::updateState(int nextFlrCall, bool passOnNext)
 				
 				if(this->prevState == Car::MOVING_UP)
 				{
-					this->setFloor(this->getFloor() + 1); // arrive at floor above
+					if(this->getFloor()+1 <= 99) // guard against out of range exceptions
+					{
+						this->setFloor(this->getFloor() + 1); // arrive at floor above
+					}
 				}
 				else
 				{
-					this->setFloor(this->getFloor() - 1); // arrive at floor below
+					if(this->getFloor()-1 >= 0) // guard against out of range exceptions
+					{
+						this->setFloor(this->getFloor() - 1); // arrive at floor below
+					}
 				}
 				this->setTimeInState(0);
 			}
@@ -223,8 +233,16 @@ void Car::updateState(int nextFlrCall, bool passOnNext)
 				}
 				else // no passengers on next floor, keep MOVING_UP
 				{
-					this->setFloor(this->getFloor() + 1); // achieve next floor
-					this->setTimeInState(0); // restart timer
+					if(this->getFloor()+1 <= 99) // guard against out of range exceptions
+					{
+						this->setFloor(this->getFloor() + 1); // achieve next floor
+						this->setTimeInState(0); // restart timer
+					}
+					else
+					{
+						this->setState(Car::STOPPING); // start stopping
+						this->setTimeInState(0); // restart timer
+					}
 				}
 			}
 			break;
@@ -252,8 +270,16 @@ void Car::updateState(int nextFlrCall, bool passOnNext)
 				}
 				else //no passengers on next floor, keep MOVING_DOWN
 				{
-					this->setFloor(this->getFloor() - 1); // achieve next floor
-					this->setTimeInState(0); // restart timer
+					if(this->getFloor()-1 >= 0) // guard against out of range exceptions
+					{
+						this->setFloor(this->getFloor() - 1); // achieve next floor
+						this->setTimeInState(0); // restart timer
+					}
+					else
+					{
+						this->setState(Car::STOPPING); // start stopping
+						this->setTimeInState(0); // restart timer
+					}
 				}
 			}
 			break;

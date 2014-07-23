@@ -14,8 +14,16 @@
 Passenger::Passenger(int timeStart, int floorStart, int floorEnd)
 {
 	this->timeStart = timeStart;
-	this->floorStart = floorStart;
-	this->floorEnd = floorEnd;
+
+	if(floorStart >= 0 && floorStart <= 99) //guard against out of range excepts
+	{
+		this->floorStart = floorStart;
+	}
+
+	if(floorEnd >= 0 && floorStart <= 99) //guard against out of range excepts
+	{
+		this->floorEnd = floorEnd;
+	}
 }
 
 //VIRTUAL DESCTRUCTOR

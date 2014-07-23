@@ -20,13 +20,13 @@ int main()
 	//Construct Building singleton
 	// filepath: /home/reechee/Documents/Cpp/HW6/HW6-Elevators.csv
 	Building *BuildingPtr;
-	BuildingPtr = Building::Instance("/home/reechee/Documents/Cpp/HW6/test.csv",
+	BuildingPtr = Building::Instance("/home/reechee/Documents/Cpp/HW6/HW6-Elevators.csv",
 	    						            4,    // number of cars
 	     						            10,   // inter-floor speed of cars
 	       						         100); // number of floors (floor 1 = ground)
 	
 	//run simulation: loop for each second of simulation
-	while(BuildingPtr->getTime() < BuildingPtr->getFinalPassengerTime() + 1000) // FIND A BETTER WAY TO EXTEND SIMULATION TO COMPLETION
+	while(BuildingPtr->getTime() < BuildingPtr->getFinalPassengerTime() + 10000) // FIND A BETTER WAY TO EXTEND SIMULATION TO COMPLETION
 	{
 		//create new passenger(s) (if any)
 		BuildingPtr->makePassenger(BuildingPtr->getTime());

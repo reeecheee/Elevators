@@ -14,8 +14,16 @@
 Passenger::Passenger(int timeStart, int floorStart, int floorEnd)
 {
 	this->timeStart = timeStart;
-	this->floorStart = floorStart;
-	this->floorEnd = floorEnd;
+
+	if(floorStart >= 0 && floorStart <= 99) //guard against out of range excepts
+	{
+		this->floorStart = floorStart;
+	}
+
+	if(floorEnd >= 0 && floorStart <= 99)
+	{
+		this->floorEnd = floorEnd;
+	}
 }
 
 //VIRTUAL DESCTRUCTOR
@@ -30,6 +38,12 @@ Passenger::~Passenger()
 int Passenger::getFloorEnd() const
 {
 	return this->floorEnd;
+}
+
+//The function getFloorStart() returns the passenger's start floor.
+int Passenger::getFloorStart() const
+{
+	return this->floorStart;
 }
 
 //The function getTimeDropOff() returns the time the passenger was dropped off
